@@ -1,0 +1,15 @@
+
+
+1. All Contacts Dynamic CDPAP ✅
+
+2. Locations ✅
+
+3. Job Applications 🔴
+
+4. Dashborad Onboarding ✅
+
+5. Login Funtionality 
+
+6. Fix Data Order
+
+7. Dashboard Locaitons
