@@ -71,32 +71,32 @@ export default function JobApplicationForm({
   }, [isOpen, reset]);
 
   const onSubmit = (data: FormData) => {
-    console.log("hello");
-
     // if (!data.coverLetter) {
     //   delete data.coverLetter;
     // }
-    console.log(data);
+    console.log("Final submitted data:", data);
     setIsSubmitted(true);
   };
 
   const handleNext = async () => {
     const fieldsToValidate = getFieldsToValidate(currentStep);
+
     const isStepValid = await trigger(fieldsToValidate);
 
     if (isStepValid) {
+      // if (currentStep === 1) {
+      //   const resumeFile = getValues().resume;
+      //   if (!resumeFile) {
+      //     setError("resume", {
+      //       type: "manual",
+      //       message: "Please upload your resume",
+      //     });
+      //     return;
+      //   }
+      // }
       if (currentStep === 1) {
-        const resumeFile = getValues().resume;
-        if (!resumeFile) {
-          setError("resume", {
-            type: "manual",
-            message: "Please upload your resume",
-          });
-          return;
-        }
-      }
-      if (currentStep === 2) {
         const { legallyAuthorized, requireVisa, driversLicense } = getValues();
+
         if (!legallyAuthorized || !requireVisa || !driversLicense) {
           setError("root.additionalQuestions", {
             type: "manual",
@@ -106,9 +106,11 @@ export default function JobApplicationForm({
           return;
         }
       }
+
       setCurrentStep((prev) => Math.min(prev + 1, steps.length));
     }
   };
+
   const handleBack = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
@@ -117,9 +119,9 @@ export default function JobApplicationForm({
     switch (step) {
       case 0:
         return ["firstName", "lastName", "email"];
+      // case 1:
+      //   return ["resume"];
       case 1:
-        return ["resume"];
-      case 2:
         return ["legallyAuthorized", "requireVisa", "driversLicense"];
       default:
         return [];
@@ -234,6 +236,7 @@ export default function JobApplicationForm({
             Apply to Axzons Homecare
           </DialogTitle>
         </DialogHeader>
+
         <div className="border-b border-gray-700 my-2 sm:my-4"></div>
 
         <div className="relative flex flex-col items-start gap-2 sm:gap-[7.49px] w-full h-[60px] sm:h-[80.93px] mb-4 sm:mb-8">
@@ -256,7 +259,7 @@ export default function JobApplicationForm({
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-4 sm:mt-6">{renderStep()}</div>
 
-          {currentStep < 3 && (
+          {currentStep < 2 && (
             <div className="border-t border-gray-700 mt-4 sm:mt-6 pt-4 sm:pt-6 flex gap-4 flex-row justify-between items-center">
               <Button
                 type="button"

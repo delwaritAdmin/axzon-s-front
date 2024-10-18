@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Eye } from "lucide-react";
 import { FormData } from "./JobApplicationForm";
+import axios from "axios";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -37,12 +41,19 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
 
   const handleSubmit = () => {
     setShowConfirmDialog(true);
-    console.log("hello");
   };
 
-  const confirmSubmit = () => {
-     console.log("hello");
-     
+  const confirmSubmit = async () => {
+    // setLoading(true);
+    try {
+      // setLoading(false);
+      await axios.post("http://localhost:5000/api/job", formData);
+      toast.success("Thanks For Contacting with Us!");
+    } catch (error) {
+      toast.error("Failed to submit data.");
+      console.error("Error making POST request:", error);
+      throw error;
+    }
     setShowConfirmDialog(false);
     onSubmit();
   };
@@ -80,7 +91,7 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
         </div>
       </div>
 
-      <div className="border-t border-[#797979] pt-4 sm:pt-6">
+      {/* <div className="border-t border-[#797979] pt-4 sm:pt-6">
         <h4 className="text-lg sm:text-2xl font-bold text-[#222222] mb-2 sm:mb-4">
           Resume
         </h4>
@@ -109,7 +120,7 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
             </Button>
           )}
         </div>
-      </div>
+      </div> */}
 
       <div className="border-t border-[#797979] pt-4 sm:pt-6">
         <h4 className="text-lg sm:text-2xl font-bold text-[#222222] mb-2 sm:mb-4">
@@ -167,12 +178,16 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmSubmit} className="bg-primary-600 hover:bg-primary-100 hover:text-primary-800 transition-colors duration-300">
+            <AlertDialogAction
+              onClick={confirmSubmit}
+              className="bg-primary-600 hover:bg-primary-100 hover:text-primary-800 transition-colors duration-300"
+            >
               Submit
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <Toaster position="bottom-right" reverseOrder={false} />
     </div>
   );
 };
