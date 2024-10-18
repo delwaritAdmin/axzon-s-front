@@ -111,7 +111,7 @@ export default function SendMessageForm({
     setLoading(true);
     try {
       setLoading(false);
-      await axios.post("http://localhost:5000/api/client", actualData);
+      await axios.post("https://axzon-s-dashboard.vercel.app/api/client", actualData);
       toast.success("Thanks For Contacting with Us!");
       reset();
       onClose();
