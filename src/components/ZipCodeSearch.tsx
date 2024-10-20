@@ -45,7 +45,7 @@ const ZipCodeSearch: React.FC = () => {
     setShowLocation(false); // Optionally reset the showLocation state
 
     try {
-      const response = await axios.get(`http://localhost:3000/NYLocation.json`);
+      const response = await axios.get(`https://axzons.com/NYLocation.json`);
 
       // Assuming response.data contains the locations
       setLocations(response.data);
@@ -70,7 +70,7 @@ const ZipCodeSearch: React.FC = () => {
     setShowLocation(false); // Optionally reset the showLocation state
 
     try {
-      const response = await axios.get(`http://localhost:3000/Galocation.json`);
+      const response = await axios.get(`https://axzons.com/Galocation.json`);
 
       // Assuming response.data contains the locations
       setLocations(response.data);
