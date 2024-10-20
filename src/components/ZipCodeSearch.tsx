@@ -58,15 +58,7 @@ const ZipCodeSearch: React.FC = () => {
 
   const fetchGALocations = async () => {
     // Define valid zip codes
-    const validZipCodes = [
-      "12207",
-      "11367",
-      "10549",
-      "14604",
-      "11965",
-      "11581",
-      "11552",
-    ];
+    const validZipCodes = ["30305"];
 
     // Early return if the query is empty or invalid
     if (query === "" || !validZipCodes.includes(query)) {
@@ -114,6 +106,9 @@ const ZipCodeSearch: React.FC = () => {
         break;
       case "08901":
         await fetchNjLocations(); // Await the function to ensure it completes
+        break;
+      case "30305":
+        await fetchGALocations(); // Await the function to ensure it completes
         break;
       default:
         await fetchNyLocations(); // Default case

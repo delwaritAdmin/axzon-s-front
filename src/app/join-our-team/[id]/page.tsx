@@ -15,6 +15,7 @@ export async function generateMetadata({
 }: {
   params: { id: string };
 }): Promise<Metadata> {
+  
   const job = jobs.find((j) => j.id === params.id);
 
   if (!job) {
