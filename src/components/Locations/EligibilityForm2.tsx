@@ -75,7 +75,7 @@ export default function EligibilityForm2() {
     try {
       setLoading(false);
        await axios.post(
-        "https://axzon-s-dashboard.vercel.app/api/client",
+        "https://testing.axzons.com/api/client",
         actualData
       );
       toast.success("Thanks For Contacting with Us!");

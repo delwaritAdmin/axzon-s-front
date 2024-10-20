@@ -47,7 +47,7 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
     // setLoading(true);
     try {
       // setLoading(false);
-      await axios.post("https://axzon-s-dashboard.vercel.app/api/job", formData);
+      await axios.post("https://testing.axzons.com/api/job", formData);
       toast.success("Thanks For Contacting with Us!");
     } catch (error) {
       toast.error("Failed to submit data.");
