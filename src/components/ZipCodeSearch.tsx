@@ -84,7 +84,7 @@ const ZipCodeSearch: React.FC = () => {
   const fetchNjLocations = async () => {
     setError("");
     try {
-      const response = await axios.get(`http://localhost:3000/NJlocation.json`);
+      const response = await axios.get(`http://axzons.com/NJlocation.json`);
 
       setShowLocation(true);
       setLocations(response.data);
