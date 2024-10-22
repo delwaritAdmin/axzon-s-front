@@ -92,7 +92,7 @@ const JobDetails: React.FC<JobDetailsProps> = ({ job }) => {
           </div>
 
           <div className="w-full lg:w-1/3">
-            <div className="sticky top-20">
+            <div className="sticky top-60">
               <div className="bg-[#F3E8FF] rounded-2xl p-5 flex flex-col items-start gap-5">
                 <Button
                   variant="primary"
@@ -144,6 +144,8 @@ const JobDetails: React.FC<JobDetailsProps> = ({ job }) => {
       <JobApplicationForm
         isOpen={showApplicationForm}
         onClose={() => setShowApplicationForm(false)}
+        jobTitle={job.title}
+        jobLocation={job.location}
       />
     </div>
   );

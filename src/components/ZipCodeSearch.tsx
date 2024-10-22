@@ -45,7 +45,7 @@ const ZipCodeSearch: React.FC = () => {
     setShowLocation(false); // Optionally reset the showLocation state
 
     try {
-      const response = await axios.get(`https://axzons.com/NYLocation.json`);
+      const response = await axios.get(`http://localhost:3000/NYLocation.json`);
 
       // Assuming response.data contains the locations
       setLocations(response.data);
@@ -58,7 +58,15 @@ const ZipCodeSearch: React.FC = () => {
 
   const fetchGALocations = async () => {
     // Define valid zip codes
-    const validZipCodes = ["30305"];
+    const validZipCodes = [
+      "12207",
+      "11367",
+      "10549",
+      "14604",
+      "11965",
+      "11581",
+      "11552",
+    ];
 
     // Early return if the query is empty or invalid
     if (query === "" || !validZipCodes.includes(query)) {
@@ -70,7 +78,7 @@ const ZipCodeSearch: React.FC = () => {
     setShowLocation(false); // Optionally reset the showLocation state
 
     try {
-      const response = await axios.get(`https://axzons.com/Galocation.json`);
+      const response = await axios.get(`http://localhost:3000/Galocation.json`);
 
       // Assuming response.data contains the locations
       setLocations(response.data);
@@ -84,7 +92,7 @@ const ZipCodeSearch: React.FC = () => {
   const fetchNjLocations = async () => {
     setError("");
     try {
-      const response = await axios.get(`https://axzons.com/NJlocation.json`);
+      const response = await axios.get(`http://localhost:3000/NJlocation.json`);
 
       setShowLocation(true);
       setLocations(response.data);
@@ -106,9 +114,6 @@ const ZipCodeSearch: React.FC = () => {
         break;
       case "08901":
         await fetchNjLocations(); // Await the function to ensure it completes
-        break;
-      case "30305":
-        await fetchGALocations(); // Await the function to ensure it completes
         break;
       default:
         await fetchNyLocations(); // Default case

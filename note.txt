@@ -1,28 +1,19 @@
 
 
-1. All Contacts Dynamic CDPAP ✅
+1. Live chat option -quickly ✅
 
-2. Locations ✅
+2. login design sundor -quickly 
 
-3. Job Applications 🔴
+3. location search new York all zipcode , new jersy all zipcode Gorgia all zipcode 
 
-4. Dashborad Onboarding ✅
+4. Filter option date search 
 
-5. Login Funtionality 
+5. HomeCare
 
-6. Fix Data Order
+6. CDPAP
 
-7. Dashboard Locaitons
+7. Locations 
 
+8. Job Application FIle Upload , job titile , filter option
 
-
-{
-    "firstName": "Edan",
-    "lastName": "Estes",
-    "phoneNumber": "+1 (194) 698-5497",
-    "email": "xyforo@mailinator.com",
-    "phoneCountryCode": "+966",
-    "legallyAuthorized": "yes",
-    "requireVisa": "yes",
-    "driversLicense": "yes"
-}
+9. job post

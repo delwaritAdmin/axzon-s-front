@@ -17,6 +17,7 @@ import ResumeUpload from "./ResumeUpload";
 import AdditionalQuestions from "./AdditionalQuestions";
 import ReviewApplication from "./ReviewApplication";
 import { schema } from "@/schemas/jobApplyForm";
+import { MapPin } from "lucide-react";
 
 const MAX_FILE_SIZE = 4 * 1024 * 1024;
 
@@ -30,18 +31,23 @@ export const validateFileSize = (file: File | undefined) => {
 interface JobApplicationFormProps {
   isOpen: boolean;
   onClose: () => void;
+  jobTitle: string;
+  jobLocation: string;
 }
 
-const steps = ["Contact Info", "Additional Questions"];
-// const steps = ["Contact Info", "Resume", "Additional Questions"];
+const steps = ["Contact Info", "Resume", "Additional Questions"];
 
 export type FormData = z.infer<typeof schema> & {
   additionalQuestions?: string;
+  jobTitle: string;
+  jobLocation: string;
 };
 
 export default function JobApplicationForm({
   isOpen,
   onClose,
+  jobTitle,
+  jobLocation,
 }: JobApplicationFormProps) {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -59,6 +65,10 @@ export default function JobApplicationForm({
   } = useForm<FormData>({
     resolver: zodResolver(schema),
     mode: "onChange",
+    defaultValues: {
+      jobTitle,
+      jobLocation,
+    },
   });
 
   // Reset form
@@ -66,37 +76,43 @@ export default function JobApplicationForm({
     if (!isOpen) {
       setCurrentStep(0);
       setIsSubmitted(false);
-      reset();
+      reset({
+        jobTitle,
+        jobLocation,
+      });
     }
-  }, [isOpen, reset]);
+  }, [isOpen, reset, jobTitle, jobLocation]);
 
   const onSubmit = (data: FormData) => {
-    // if (!data.coverLetter) {
-    //   delete data.coverLetter;
-    // }
-    console.log("Final submitted data:", data);
+    if (!data.coverLetter) {
+      delete data.coverLetter;
+    }
+    const fullApplicationData = {
+      ...data,
+      jobTitle,
+      jobLocation,
+    };
+    console.log(fullApplicationData, "Full application data");
     setIsSubmitted(true);
   };
 
   const handleNext = async () => {
     const fieldsToValidate = getFieldsToValidate(currentStep);
-
     const isStepValid = await trigger(fieldsToValidate);
 
     if (isStepValid) {
-      // if (currentStep === 1) {
-      //   const resumeFile = getValues().resume;
-      //   if (!resumeFile) {
-      //     setError("resume", {
-      //       type: "manual",
-      //       message: "Please upload your resume",
-      //     });
-      //     return;
-      //   }
-      // }
       if (currentStep === 1) {
+        const resumeFile = getValues().resume;
+        if (!resumeFile) {
+          setError("resume", {
+            type: "manual",
+            message: "Please upload your resume",
+          });
+          return;
+        }
+      }
+      if (currentStep === 2) {
         const { legallyAuthorized, requireVisa, driversLicense } = getValues();
-
         if (!legallyAuthorized || !requireVisa || !driversLicense) {
           setError("root.additionalQuestions", {
             type: "manual",
@@ -106,11 +122,9 @@ export default function JobApplicationForm({
           return;
         }
       }
-
       setCurrentStep((prev) => Math.min(prev + 1, steps.length));
     }
   };
-
   const handleBack = () => {
     setCurrentStep((prev) => Math.max(prev - 1, 0));
   };
@@ -119,9 +133,9 @@ export default function JobApplicationForm({
     switch (step) {
       case 0:
         return ["firstName", "lastName", "email"];
-      // case 1:
-      //   return ["resume"];
       case 1:
+        return ["resume"];
+      case 2:
         return ["legallyAuthorized", "requireVisa", "driversLicense"];
       default:
         return [];
@@ -131,18 +145,16 @@ export default function JobApplicationForm({
   const renderStep = () => {
     switch (currentStep) {
       case 0:
-        return (
-          <ContactInfo register={register} errors={errors} control={control} />
-        );
-      // case 1:
-      //   return (
-      //     <ResumeUpload
-      //       register={register}
-      //       errors={errors}
-      //       setValue={setValue}
-      //     />
-      //   );
+        return <ContactInfo register={register} errors={errors} />;
       case 1:
+        return (
+          <ResumeUpload
+            register={register}
+            errors={errors}
+            setValue={setValue}
+          />
+        );
+      case 2:
         return (
           <AdditionalQuestions
             register={register}
@@ -150,7 +162,7 @@ export default function JobApplicationForm({
             control={control}
           />
         );
-      case 2:
+      case 3:
         return (
           <ReviewApplication
             formData={getValues()}
@@ -195,25 +207,34 @@ export default function JobApplicationForm({
             </DialogTitle>
           </DialogHeader>
           <div className="flex flex-col items-center justify-center text-center mt-6 sm:mt-8 md:mt-10 space-y-6 sm:space-y-8 md:space-y-10">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 bg-primary-600 rounded-full flex items-center justify-center">
+            <div className="space-y-2">
+              <h3 className="text-xl sm:text-2xl md:text-[24px] font-bold text-[#222222]">
+                {jobTitle}
+              </h3>
+              <p className="text-base sm:text-lg md:text-xl text-[#797979] flex items-center justify-center">
+                <MapPin className="w-5 h-5 mr-2" />
+                {jobLocation}
+              </p>
+            </div>
+            <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 border-8 border-primary-600 rounded-full flex items-center justify-center">
               <svg
-                className="w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14 text-white"
+                className="w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 text-primary-600"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                strokeWidth="2"
               >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  strokeWidth={2}
                   d="M5 13l4 4L19 7"
                 />
               </svg>
             </div>
             <div className="space-y-4">
-              <h3 className="text-xl sm:text-2xl md:text-[24px] font-bold text-[#222222]">
+              <h4 className="text-lg sm:text-xl md:text-2xl font-semibold text-[#222222]">
                 Your application was sent to Axzons Homecare!
-              </h3>
+              </h4>
               <p className="text-sm sm:text-base md:text-lg text-[#222222] max-w-2xl mx-auto">
                 Thank you for your interest in Axzons Homecare and for taking
                 the time to apply for this position. We received your
@@ -232,13 +253,11 @@ export default function JobApplicationForm({
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[900px] max-h-[100vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl sm:text-[36px] font-bold text-primary-600">
+          <DialogTitle className="text-2xl sm:text-[36px] font-bold text-primary-600 text-center">
             Apply to Axzons Homecare
           </DialogTitle>
         </DialogHeader>
-
         <div className="border-b border-gray-700 my-2 sm:my-4"></div>
-
         <div className="relative flex flex-col items-start gap-2 sm:gap-[7.49px] w-full h-[60px] sm:h-[80.93px] mb-4 sm:mb-8">
           <div className="absolute w-[calc(100%-50px)] md:w-[610px] lg:w-[620px] h-[2px] left-[20px] sm:left-[102px] top-[18px] sm:top-[24px] bg-gray-500"></div>
           <div className="flex justify-between items-start w-full h-full z-10">
@@ -256,33 +275,42 @@ export default function JobApplicationForm({
           </div>
         </div>
 
+        <div className="text-center mb-4 space-y-2">
+          <h2 className="text-xl sm:text-2xl font-semibold text-[#222222]">
+            {jobTitle}
+          </h2>
+          <p className="text-base sm:text-lg text-[#797979] flex items-center justify-center">
+            <MapPin className="w-5 h-5 mr-2" />
+            {jobLocation}
+          </p>
+        </div>
+
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="mt-4 sm:mt-6">{renderStep()}</div>
-
-          {currentStep < 2 && (
+          {currentStep < 3 && (
             <div className="border-t border-gray-700 mt-4 sm:mt-6 pt-4 sm:pt-6 flex gap-4 flex-row justify-between items-center">
               <Button
                 type="button"
                 onClick={handleBack}
-                className={`w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full text-white font-semibold transition-all duration-300 ${
+                className={`w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full font-semibold transition-colors duration-200  border-primary-600 ${
                   currentStep === 0
-                    ? "bg-gray-400"
-                    : "bg-[#7E22CE] hover:bg-[#6B1FAF]"
+                    ? "bg-gray-400 text-white cursor-not-allowed"
+                    : "bg-primary-600 text-white hover:bg-primary-100 hover:text-primary-600 border"
                 }`}
                 disabled={currentStep === 0}
               >
                 Back
               </Button>
               <Button
+                variant="primary"
                 type="button"
                 onClick={handleNext}
-                className="w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full bg-[#7E22CE] text-white font-semibold hover:bg-[#6B1FAF] transition-all duration-300"
+                className="w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full text-white hover:text-primary-600 font-semibold "
               >
                 {currentStep === steps.length - 1 ? "Review" : "Next"}
               </Button>
             </div>
           )}
-
           {errors.root?.additionalQuestions && (
             <p className="text-red-500 mt-2 text-sm">
               {errors.root.additionalQuestions.message}
