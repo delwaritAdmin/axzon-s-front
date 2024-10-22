@@ -58,6 +58,7 @@ const About = () => {
   return (
     <>
       <div className="flex max-w-[1920px] mx-auto flex-col lg:flex-row justify-center items-stretch p-4 lg:p-16 gap-8 bg-[#F3FFF0]">
+      
         <div className="w-full lg:w-1/2 max-w-3xl flex flex-col gap-10">
           <div className="relative w-full h-[500px] md:h-[400px] lg:h-[424px]">
             <Image
@@ -89,6 +90,8 @@ const About = () => {
             </div>
           </div>
         </div>
+
+
         <div className="w-full lg:w-1/2 max-w-3xl bg-primary-100 rounded-2xl p-8 flex flex-col">
           <div className="flex-1">
             <h1 className="text-4xl lg:text-6xl font-bold text-black mb-6">
@@ -133,6 +136,7 @@ const About = () => {
             ))}
           </div>
         </div>
+       
         <div className="block lg:hidden bg-primary-800 rounded-2xl p-6 text-white">
           <h3 className="text-2xl lg:text-4xl font-bold mb-6">
             We always love to hear from you.
@@ -153,6 +157,8 @@ const About = () => {
             ))}
           </div>
         </div>
+
+        
       </div>
       <JoinFamily />
       <Philosophy />

@@ -25,37 +25,37 @@ export default function Footer() {
             </p>
           </div>
           <div className="space-y-4">
-            <h3 className="text-5xl font-semibold">Services</h3>
+            <h3 className="text-3xl font-semibold">Services</h3>
             <ul className="space-y-2">
               {[
-                "Homecare Services",
-                "Private Duty Nursing",
-                "Specialized Care",
-                "Nutritional Counseling",
-                "Medical Social Services",
-                "Consumer Directed (CDPAP)",
+                { name: "Homecare Services", url: "/services/homecare-services" },
+                { name: "Private Duty Nursing", url: "/services/private-duty-nursing" },
+                { name: "Specialized Care", url: "/services/specialized-care" },
+                { name: "Nutritional Counseling", url: "/services/nutritional-counseling" },
+                { name: "Medical Social Services", url: "/services/medical-social-service" },
+                { name: "Consumer Directed (CDPAP)", url: "/services/cdpap" },
               ].map((service) => (
-                <li key={service} className="text-lg">
-                  <Link href="#" className="hover:underline">
-                    {service}
+                <li key={service.name} className="text-lg">
+                  <Link href={service.url} className="hover:underline">
+                    {service.name}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-5xl font-semibold">Quick Links</h3>
+            <h3 className="text-3xl font-semibold">Quick Links</h3>
             <ul className="space-y-2">
               {[
-                "About Us",
-                "Request Care",
-                "Join Our Team",
-                "Privacy Policy",
-                "Terms and Conditions",
+                { name: "About Us", url: "/about" },
+                { name: "Request Care", url: "/request-care" },
+                { name: "Join Our Team", url: "/join-our-team" },
+                { name: "Privacy Policy", url: "/privacy-policy" },
+                { name: "Terms and Conditions", url: "/terms-and-conditions" },
               ].map((link) => (
-                <li key={link} className="text-lg">
-                  <Link href="#" className="hover:underline">
-                    {link}
+                <li key={link.name} className="text-lg">
+                  <Link href={link.url} className="hover:underline">
+                    {link.name}
                   </Link>
                 </li>
               ))}
@@ -68,7 +68,7 @@ export default function Footer() {
             </ul>
           </div>
           <div className="space-y-4">
-            <h3 className="text-5xl font-semibold">We Serve</h3>
+            <h3 className="text-3xl font-semibold">We Serve</h3>
             <ul className="space-y-2">
               {["New York", "New Jersey", "Georgia"].map((location) => (
                 <li key={location} className="text-lg">

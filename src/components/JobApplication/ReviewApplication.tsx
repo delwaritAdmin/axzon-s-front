@@ -37,12 +37,9 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
 
   const handleSubmit = () => {
     setShowConfirmDialog(true);
-    console.log("hello");
   };
 
   const confirmSubmit = () => {
-     console.log("hello");
-     
     setShowConfirmDialog(false);
     onSubmit();
   };
@@ -64,10 +61,6 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
           <p>
             <span className="font-semibold">Name:</span> {formData.firstName}{" "}
             {formData.lastName}
-          </p>
-          <p>
-            <span className="font-semibold">Phone Country Code:</span>{" "}
-            {formData.phoneCountryCode || "Not provided"}
           </p>
           <p>
             <span className="font-semibold">Phone Number:</span>{" "}
@@ -118,39 +111,57 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
         <div className="space-y-2 sm:space-y-3 text-sm sm:text-base">
           <p>
             <span className="font-semibold">
-              Are you legally authorized to work in the United States for any
-              employer?
-            </span>{" "}
+              Are you legally authorized to work in the United States for any employer?
+            </span><br />
             {formData.legallyAuthorized || "Not answered"}
           </p>
           <p>
             <span className="font-semibold">
-              Will you now or will you in the future require employment visa
-              sponsorship?
-            </span>{" "}
+              Will you now or will you in the future require employment visa sponsorship?
+            </span><br />
             {formData.requireVisa || "Not answered"}
           </p>
           <p>
             <span className="font-semibold">
               Do you have a valid driver&apos;s license?
-            </span>{" "}
+            </span><br />
             {formData.driversLicense || "Not answered"}
+          </p>
+          <p>
+            <span className="font-semibold">
+              Do you have valid HHA/PCA certificate?
+            </span><br />
+            {formData.validHhaPca || "Not answered"}
+          </p>
+          <p>
+            <span className="font-semibold">
+              Do you have current annual physical?
+            </span><br />
+            {formData.currentAnnualPhysical || "Not answered"}
+          </p>
+          <p>
+            <span className="font-semibold">
+              Do you have 2 work references?
+            </span><br />
+            {formData.twoWorkReferences || "Not answered"}
           </p>
         </div>
       </div>
 
       <div className="border-t border-[#797979] pt-6 flex gap-4 flex-row justify-between items-center">
         <Button
+          variant="primary"
           type="button"
           onClick={onBack}
-          className="w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full bg-[#7E22CE] text-white hover:bg-[#6B1FAF] transition-all duration-300"
+          className="w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full text-white hover:bg-primary-100 hover:text-primary-600"
         >
           <span className="font-semibold">Back</span>
         </Button>
         <Button
+          variant="primary"
           type="button"
           onClick={handleSubmit}
-          className="w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full bg-[#7E22CE] text-white hover:bg-[#6B1FAF] transition-all duration-300"
+          className="w-full sm:w-[270px] h-[40px] sm:h-[65px] px-4 sm:px-10 py-2 sm:py-5 text-sm sm:text-xl rounded-full text-white hover:bg-primary-100 hover:text-primary-600"
         >
           <span className="font-semibold">Submit Application</span>
         </Button>
@@ -159,15 +170,20 @@ const ReviewApplication: React.FC<ReviewApplicationProps> = ({
       <AlertDialog open={showConfirmDialog} onOpenChange={setShowConfirmDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>Confirm Submission</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-2xl sm:text-3xl font-bold text-black">Confirm Submission</AlertDialogTitle>
+            <AlertDialogDescription className="text-lg sm:text-xl text-black">
               Are you sure you want to submit your application? Once submitted,
               you won&apos;t be able to make any changes.
             </AlertDialogDescription>
           </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>Cancel</AlertDialogCancel>
-            <AlertDialogAction onClick={confirmSubmit} className="bg-primary-600 hover:bg-primary-100 hover:text-primary-800 transition-colors duration-300">
+          <AlertDialogFooter className="flex flex-col sm:flex-row gap-4 sm:gap-8">
+            <AlertDialogCancel className="w-full sm:w-[200px] h-[50px] sm:h-[65px] text-base sm:text-xl font-semibold rounded-full">
+              Cancel
+            </AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={confirmSubmit} 
+              className="w-full sm:w-[200px] h-[50px] sm:h-[65px] bg-primary-600 text-white hover:bg-primary-100 hover:text-primary-600 transition-colors duration-300 text-base sm:text-xl font-semibold rounded-full border border-primary-600"
+            >
               Submit
             </AlertDialogAction>
           </AlertDialogFooter>

@@ -29,49 +29,6 @@ const formSchema = z.object({
 
 type FormData = z.infer<typeof formSchema>;
 
-// const onSubmit = async (data: FormData) => {
-//   setLoading(true);
-
-//   const {
-//     name,
-//     phone,
-//     email,
-//     cityState,
-//     contactTime,
-//     timeZone,
-//     needs,
-//     insuranceType,
-//     relationship,
-//   } = data;
-
-//   let clientType = "CDPAP";
-
-//   const actualData = {
-//     name,
-//     phone,
-//     email,
-//     city: cityState,
-//     preferredContactTime: contactTime,
-//     timeZone,
-//     typeOfInsurance: insuranceType,
-//     relationshipToClient: relationship,
-//     description: needs,
-//     clientType,
-//   };
-
-//   try {
-//     setLoading(false);
-//     await axios.post("http://localhost:5000/api/client", actualData);
-//     toast.success("Thanks For Contacting with Us!");
-//     reset();
-//   } catch (error) {
-//     setLoading(false);
-//     toast.error("Failed to submit data.");
-//     console.error("Error making POST request:", error);
-//     throw error; // Re-throw the error if you want to handle it later
-//   }
-// };
-
 const states = ["New York", "New Jersey", "Georgia"];
 
 export default function EligibilityForm() {

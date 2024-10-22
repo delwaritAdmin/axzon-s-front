@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { Check, X } from "lucide-react";
 
 const eligibilityCriteria = [
@@ -64,43 +63,29 @@ export default function CDPAPEligibility() {
           </div>
         </div>
         <div className="grid md:grid-cols-2 gap-10 mt-10">
-          <div className="relative aspect-video rounded-3xl overflow-hidden">
-            <Image
-              src="/images/services/thamnail1.png"
-              alt="CDPAP Video"
-              layout="fill"
-              objectFit="cover"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-8 h-8 text-white"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
+          <div className="aspect-video rounded-3xl overflow-hidden">
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src="https://www.youtube.com/embed/HwSGOl3HbJU" 
+              title="CDPAP | Axzons CDPAP | Axzons HomeCare" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              allowFullScreen
+            ></iframe>
           </div>
-          <div className="relative aspect-video rounded-3xl overflow-hidden">
-            <Image
-              src="/images/services/thamnail2.png"
-              alt="Home Health Aide Review"
-              layout="fill"
-              objectFit="cover"
-            />
-            <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center">
-                <svg
-                  className="w-8 h-8 text-white"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                >
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            </div>
+          <div className="aspect-video rounded-3xl overflow-hidden">
+            <iframe 
+              width="100%" 
+              height="100%" 
+              src="https://www.youtube.com/embed/9VX4OTStgec" 
+              title="Axzons HomeCare - Home Health Aide: Reynaldo Benitez's Review" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              allowFullScreen
+            ></iframe>
           </div>
         </div>
       </div>

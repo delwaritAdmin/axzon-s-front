@@ -17,11 +17,13 @@ export const schema = z.object({
     firstName: z.string().min(1, "First name is required"),
     lastName: z.string().min(1, "Last name is required"),
     email: z.string().email("Invalid email address"),
-    phoneCountryCode: z.string().optional(),
     phoneNumber: z.string().optional(),
     resume: fileSchema,
     coverLetter: z.any().optional(), // Changed to z.any().optional()
     legallyAuthorized: z.enum(["yes", "no"]),
     requireVisa: z.enum(["yes", "no"]),
     driversLicense: z.enum(["yes", "no"]),
+    validHhaPca: z.string().optional(),
+    currentAnnualPhysical: z.string().optional(),
+    twoWorkReferences: z.string().optional(),
 })

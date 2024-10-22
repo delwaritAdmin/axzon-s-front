@@ -33,7 +33,7 @@ export const serviceData = [
         title: "Nutritional Counseling",
         description:
             "Our nutritional counselors can help in managing diets to counteract ill effects of debilitating diseases.",
-        image: "/images/services/nutritional-counseling.png",
+        image: "/images/services/NutritionalCounseling.png",
         bgColor: "bg-primary-800",
         textColor: "text-white",
         imagePosition: "left",

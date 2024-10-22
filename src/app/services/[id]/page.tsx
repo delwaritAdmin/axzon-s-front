@@ -1,6 +1,6 @@
 import React from "react";
 import { notFound } from "next/navigation";
-import { serviceData } from "@/constants/ServicesData";
+
 import HomecareServices from "@/components/Services/Homecare";
 import PrivateDutyNursing from "@/components/Services/PrivateDutyNursing";
 import SpecializedCare from "@/components/Services/SpecializedCare";
@@ -8,6 +8,7 @@ import NutritionalCounseling from "@/components/Services/NutritionalCounseling";
 import MedicalSocialService from "@/components/Services/MedicalSocialService";
 import CDPAP from "@/components/Services/CDPAP";
 import { Metadata } from "next";
+import { serviceData } from "@/constants/ServicesData";
 
 export async function generateStaticParams() {
   return serviceData.map((service) => ({
@@ -15,9 +16,13 @@ export async function generateStaticParams() {
   }));
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const service = serviceData.find(s => s.slug === params.id);
-  
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const service = serviceData.find((s) => s.slug === params.id);
+
   if (!service) {
     return {
       title: "Service Not Found",
@@ -27,7 +32,10 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   return {
     title: `${service.title} | Axzons Homecare Services`,
     description: service.description,
-    keywords: `${service.title.toLowerCase()}, home health care, Axzons Homecare, ${service.slug.replace('-', ' ')}`,
+    keywords: `${service.title.toLowerCase()}, home health care, Axzons Homecare, ${service.slug.replace(
+      "-",
+      " "
+    )}`,
     openGraph: {
       title: `${service.title} | Axzons Homecare Services`,
       description: service.description,
@@ -72,7 +80,6 @@ const ServicePage = ({ params }: { params: { id: string } }) => {
         return <MedicalSocialService />;
       case "cdpap":
         return <CDPAP />;
-      // ... and so on for other services
       default:
         // Fallback content if no specific component is available
         return (

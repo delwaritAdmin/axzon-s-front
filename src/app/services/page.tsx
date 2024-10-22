@@ -78,7 +78,7 @@ const ServiceCard: React.FC<ServiceCardProps> = ({ service }) => (
       <Link href={`/services/${service.slug}`}>
         <Button
           variant="outline"
-          className="flex flex-row items-center justify-center px-5 py-2.5 w-full md:w-36 h-12 bg-white text-primary-600 border border-[#7E22CE] rounded-md hover:bg-primary-100 font-semibold text-base"
+          className="flex flex-row items-center justify-center px-5 py-2.5 w-full md:w-36 h-12 bg-white text-primary-600 hover:text-primary-600 border border-primary-600 rounded-md hover:bg-primary-50 font-semibold text-base"
         >
           Learn More
         </Button>

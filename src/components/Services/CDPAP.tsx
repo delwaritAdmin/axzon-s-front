@@ -86,7 +86,9 @@ export default function CDPAP() {
           </div>
         </div>
       </div>
+
       <Banner />
+
       <EligibilityForm />
       <HowItWorksFAQ />
       <CDPAPEligibility />

@@ -20,7 +20,7 @@ export default function PrivateDutyNursing() {
     <>
       <div className="relative w-full bg-[#F3FFF0] overflow-hidden">
         <div className="w-full max-w-[1920px] mx-auto min-h-[616px] flex flex-col lg:flex-row items-start justify-between p-4 sm:p-8 md:p-16 lg:p-[100px_80px] xl:p-[100px_160px] gap-0 sm:gap-6 md:gap-8 lg:gap-10 relative">
-          <div className="w-full lg:w-1/2 xl:w-[calc(100%-500px)] 2xl:w-[calc(100%-750px)] lg:mb-0 flex flex-col gap-4 lg:gap-6 z-10">
+          <div className="w-full lg:w-1/2 xl:w-[calc(100%-595px)] 2xl:w-[calc(100%-750px)] lg:mb-0 flex flex-col gap-4 lg:gap-6 z-10">
             <div className="w-full mb-4 lg:mb-0">
               <h1 className="text-3xl md:text-4xl lg:text-[48px] xl:text-[55px] font-bold leading-tight md:leading-[1.2] lg:leading-[1.2] text-[#222222] mb-6">
                 Private Duty Nursing

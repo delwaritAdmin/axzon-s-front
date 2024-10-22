@@ -17,32 +17,37 @@ import ZipCodeSearch from "@/components/ZipCodeSearch";
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [activeLink, setActiveLink] = useState("");
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-  const [location, setLocation] = useState("");
 
   useEffect(() => {
-    console.log("Current pathname:", pathname); // Log for debugging
-
     if (pathname.startsWith("/services")) {
       setActiveLink("/services");
     } else if (pathname.startsWith("/cdpap")) {
       setActiveLink("/cdpap");
-    } else if (pathname.includes("/new-york")) {
-      setLocation("New York");
-      setActiveLink("/locations");
-    } else if (pathname.includes("/new-jersey")) {
-      setLocation("New Jersey");
+    } else if (pathname.startsWith("/locations")) {
       setActiveLink("/locations");
     } else if (pathname.startsWith("/join-our-team")) {
       setActiveLink("/join-our-team");
     } else {
       setActiveLink(pathname);
-      setLocation(""); // This will set the active link to the exact pathname
     }
   }, [pathname]);
 
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
   return (
-    <nav className="bg-white shadow-sm">
+    <nav
+      className={`sticky top-0 z-50 bg-white transition-shadow duration-300 ${
+        isScrolled ? "shadow-md" : ""
+      }`}
+    >
       <div className="bg-primary-50">
         <div className="max-w-[1600px] mx-auto px-4 sm:px-6 py-2 sm:py-4 flex flex-wrap items-center justify-end">
           <DropdownMenu>
@@ -54,9 +59,7 @@ export default function Navbar() {
               >
                 <div className="flex items-center justify-between w-full">
                   <MapPin className="w-6 h-6 text-primary-600" />
-                  <span className="mx-2 text-xl">
-                    Find Axzons locations {`: ${location}`}
-                  </span>
+                  <span className="mx-2 text-xl">Find Axzons locations</span>
                   <ChevronDown className="h-3 w-3 sm:h-4 sm:w-4 md:h-5 md:w-5 text-primary-600" />
                 </div>
               </Button>
@@ -84,7 +87,7 @@ export default function Navbar() {
               <Link
                 key={item}
                 href={`/${item.toLowerCase()}`}
-                className={`text-black hover:text-gray-700 px-2 py-2 text-sm xl:text-base 2xl:text-xl font-semibold uppercase whitespace-nowrap ${
+                className={`text-black hover:text-primary-600 px-2 py-2 text-sm xl:text-base 2xl:text-xl font-semibold uppercase whitespace-nowrap transition-colors duration-200 ${
                   activeLink === `/${item.toLowerCase()}`
                     ? "text-primary-600 border-b-2 border-primary-600"
                     : ""
@@ -98,7 +101,7 @@ export default function Navbar() {
         <div className="hidden lg:flex lg:items-center lg:space-x-2 xl:space-x-4 flex-grow basis-0 justify-end">
           <Link
             href="/locations"
-            className={`text-black px-2 py-2 text-sm xl:text-base 2xl:text-xl font-semibold uppercase whitespace-nowrap ${
+            className={`text-black hover:text-primary-600 px-2 py-2 text-sm xl:text-base 2xl:text-xl font-semibold uppercase whitespace-nowrap transition-colors duration-200 ${
               activeLink === "/locations"
                 ? "text-primary-600 border-b-2 border-primary-600"
                 : ""
@@ -109,10 +112,10 @@ export default function Navbar() {
           <Link href="/request-care">
             <Button
               variant={activeLink === "/request-care" ? "default" : "outline"}
-              className={`h-10 px-3 xl:px-4 py-2 rounded-full text-xs xl:text-sm 2xl:text-base font-semibold uppercase whitespace-nowrap ${
+              className={`h-10 px-3 xl:px-4 py-2 rounded-full text-xs xl:text-sm 2xl:text-base font-semibold uppercase whitespace-nowrap transition-colors duration-200 ${
                 activeLink === "/request-care"
                   ? "bg-primary-600 text-white hover:bg-primary-700"
-                  : "text-black border-black hover:bg-gray-100"
+                  : "text-black border-black hover:bg-primary-100 hover:text-primary-600 hover:border-primary-600"
               }`}
             >
               REQUEST CARE
@@ -121,10 +124,10 @@ export default function Navbar() {
           <Link href="/join-our-team">
             <Button
               variant={activeLink === "/join-our-team" ? "default" : "outline"}
-              className={`h-10 px-3 xl:px-4 py-2 rounded-full text-xs xl:text-sm 2xl:text-base font-semibold uppercase whitespace-nowrap ${
+              className={`h-10 px-3 xl:px-4 py-2 rounded-full text-xs xl:text-sm 2xl:text-base font-semibold uppercase whitespace-nowrap transition-colors duration-200 ${
                 activeLink === "/join-our-team"
                   ? "bg-primary-600 text-white hover:bg-primary-700"
-                  : "text-black border-black hover:bg-gray-100"
+                  : "text-black border-black hover:bg-primary-100 hover:text-primary-600 hover:border-primary-600"
               }`}
             >
               JOIN OUR TEAM
@@ -179,10 +182,10 @@ export default function Navbar() {
                 <Link
                   key={item}
                   href={`/${item.toLowerCase()}`}
-                  className={`block py-2 text-xl font-semibold uppercase ${
+                  className={`block py-2 text-xl font-semibold uppercase transition-colors duration-200 ${
                     activeLink === `/${item.toLowerCase()}`
                       ? "text-primary-600 border-b-2 border-primary-600 inline-block"
-                      : "text-black hover:text-gray-700"
+                      : "text-black hover:text-primary-600"
                   }`}
                   onClick={() => setIsOpen(false)}
                 >
@@ -198,7 +201,7 @@ export default function Navbar() {
                     className={`w-[198px] h-12 rounded-full text-base font-semibold uppercase my-2 ${
                       activeLink === "/request-care"
                         ? "bg-primary-600 text-white hover:bg-primary-700"
-                        : "border border-black text-black hover:bg-gray-100"
+                        : "border border-black text-black hover:bg-primary-100 hover:text-primary-600 hover:border-primary-600"
                     }`}
                   >
                     REQUEST CARE
@@ -212,7 +215,7 @@ export default function Navbar() {
                     className={`w-[198px] h-12 rounded-full text-base font-semibold uppercase my-2 ${
                       activeLink === "/join-our-team"
                         ? "bg-primary-600 text-white hover:bg-primary-700"
-                        : "border border-black text-black hover:bg-gray-100"
+                        : "border border-black text-black hover:bg-primary-100 hover:text-primary-600 hover:border-primary-600"
                     }`}
                   >
                     JOIN OUR TEAM

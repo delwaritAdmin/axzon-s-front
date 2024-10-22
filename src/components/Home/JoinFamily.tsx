@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Phone, Mail, Search, MapPin } from "lucide-react";
 import SendMessageForm from "@/components/SendMessageForm";
-import Link from "next/link";
 
 export default function JoinFamily() {
   const [activeTab, setActiveTab] = useState("request");
@@ -28,23 +27,26 @@ export default function JoinFamily() {
               the state of New York, and homecare services in New York, New
               Jersey and Georgia.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-full sm:w-auto">
-              <a href="tel:8664299667">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-8 w-full">
+              <a
+                href="tel:8664299667"
+                className="w-full sm:flex-1 sm:max-w-[376px]"
+              >
                 <Button
                   variant="primary"
-                  className="w-full md:w-[376px] h-[65px] px-4 md:px-8 py-2.5 flex items-center justify-center gap-2 text-xl font-semibold"
+                  className="w-full h-[65px] px-4 py-2.5 flex items-center justify-center gap-2 text-base sm:text-lg md:text-xl font-semibold whitespace-nowrap"
                 >
-                  <Phone className="h-5 w-5 md:h-6 md:w-6" />
-                  (866) 4AXZONS
+                  <Phone className="h-5 w-5 md:h-6 md:w-6 flex-shrink-0" />
+                  <span className="truncate">(866) 4AXZONS</span>
                 </Button>
               </a>
               <Button
                 variant="outline"
-                className="flex items-center justify-center gap-2 w-full sm:w-[376px] h-[65px] border-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-md text-primary-600 text-lg font-semibold"
+                className="w-full sm:flex-1 sm:max-w-[376px] h-[65px] px-4 py-2.5 flex items-center justify-center bg-white gap-2 border-primary-600 hover:text-primary-700 hover:bg-primary-50 rounded-md text-primary-600 text-base sm:text-lg md:text-xl font-semibold whitespace-nowrap"
                 onClick={openMessageForm}
               >
-                <Mail className="w-6 h-6" />
-                Send a message
+                <Mail className="w-5 h-5 md:w-6 md:h-6 flex-shrink-0" />
+                <span className="truncate">Send a message</span>
               </Button>
             </div>
           </div>
@@ -80,27 +82,13 @@ export default function JoinFamily() {
                   />
                 </div>
                 <div className="w-full sm:w-1/2">
-                  {activeTab === "join" ? (
-                    <Link href={"/join-our-team"}>
-                      <Button
-                        variant="primary"
-                        className="w-full h-[65px] rounded-md text-lg font-semibold flex items-center justify-center gap-2"
-                      >
-                        <Search className="w-6 h-6" />
-                        Find a local office
-                      </Button>
-                    </Link>
-                  ) : (
-                    <Link href={"/request-care"}>
-                      <Button
-                        variant="primary"
-                        className="w-full h-[65px] rounded-md text-lg font-semibold flex items-center justify-center gap-2"
-                      >
-                        <Search className="w-6 h-6" />
-                        Find a local office
-                      </Button>
-                    </Link>
-                  )}
+                  <Button
+                    variant="primary"
+                    className="w-full h-[65px] rounded-md text-lg font-semibold flex items-center justify-center gap-2"
+                  >
+                    <Search className="w-6 h-6" />
+                    Find a local office
+                  </Button>
                 </div>
               </div>
             </div>

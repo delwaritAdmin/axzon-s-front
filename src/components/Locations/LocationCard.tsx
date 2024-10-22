@@ -59,8 +59,17 @@ export const LocationCard: React.FC<LocationCardProps> = ({
 }) => {
   return (
     <div className="flex flex-col md:flex-row w-full overflow-hidden rounded-2xl">
+      <div className="w-full md:w-1/2 md:hidden">
+        <Image
+          src={location.mapImage}
+          alt={`Map of ${location.state}`}
+          width={800}
+          height={700}
+          className="w-full h-full object-cover"
+        />
+      </div>
       {imagePosition === "left" && (
-        <div className="w-full md:w-1/2">
+        <div className="hidden md:block w-full md:w-1/2">
           <Image
             src={location.mapImage}
             alt={`Map of ${location.state}`}
@@ -100,7 +109,7 @@ export const LocationCard: React.FC<LocationCardProps> = ({
         </Link>
       </div>
       {imagePosition === "right" && (
-        <div className="w-full md:w-1/2">
+        <div className="hidden md:block w-full md:w-1/2">
           <Image
             src={location.mapImage}
             alt={`Map of ${location.state}`}

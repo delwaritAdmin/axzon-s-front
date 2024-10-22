@@ -1,9 +1,4 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    eslint: {
-        // Warning: This disables ESLint during production builds
-        ignoreDuringBuilds: true,
-      },
-};
+const nextConfig = {};
 
 export default nextConfig;
