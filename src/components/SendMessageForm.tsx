@@ -1,5 +1,5 @@
 "use client";
-
+import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -19,6 +19,9 @@ import {
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 interface SendMessageFormProps {
   isOpen: boolean;
@@ -54,11 +57,54 @@ export default function SendMessageForm({
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Handle form submission here
-    reset();
-    onClose();
+  const route = usePathname();
+
+  const onSubmit = async (data: FormData) => {
+    let clientType = "CDPAP";
+
+    switch (route) {
+      case "/services/homecare-services":
+        clientType = "homecare";
+        break;
+      case "/services/private-duty-nursing":
+        clientType = "nursing";
+        break;
+      case "/services/specialized-care":
+        clientType = "specializedCare";
+        break;
+      case "/services/medical-social-service":
+        clientType = "medialSocialServices";
+        break;
+      case "/services/nutritional-counseling":
+        clientType = "nutrition";
+        break;
+      case "/locations/new-york":
+        clientType = "NY";
+        break;
+      case "/locations/new-jersey":
+        clientType = "NJ";
+        break;
+      case "/locations/georgia":
+        clientType = "GA";
+        break;
+      default:
+        clientType = "CDPAP";
+    }
+
+    try {
+      await axios.post(`${process.env.API_URL}/api/client`, {
+        ...data,
+        clientType,
+      });
+
+      toast.success("Thanks For Contacting with Us!");
+      reset();
+      onClose();
+    } catch (error) {
+      toast.error("Failed to submit data.");
+      console.error("Error making POST request:", error);
+      throw error; // Re-throw the error if you want to handle it later
+    }
   };
 
   const renderSelectItem = (value: string, label: string) => (
@@ -72,13 +118,15 @@ export default function SendMessageForm({
           <DialogTitle className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary-600 text-center border-b-2 border-gray-400 pb-4">
             How can we help?
           </DialogTitle>
-          
         </DialogHeader>
         <p className="text-base md:text-lg leading-relaxed md:leading-[23px] text-[#222222] mb-4">
           Please fill out the form to let us know your needs. Our friendly staff
           will reach out at a time convenient to you.
         </p>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 bg-primary-100 p-4 rounded-lg">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="space-y-4 bg-primary-100 p-4 rounded-lg"
+        >
           <Input
             type="text"
             placeholder="Name *"
@@ -197,6 +245,7 @@ export default function SendMessageForm({
             Submit
           </Button>
         </form>
+        <Toaster position="bottom-right" reverseOrder={false} />
       </DialogContent>
     </Dialog>
   );

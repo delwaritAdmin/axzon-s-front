@@ -1,5 +1,4 @@
 "use client";
-
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -13,6 +12,9 @@ import {
 import { z } from "zod";
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import axios from "axios";
+import { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   name: z.string().min(1, { message: "Name is required" }),
@@ -42,10 +44,34 @@ export default function EligibilityForm2() {
     resolver: zodResolver(formSchema),
   });
 
-  const onSubmit = (data: FormData) => {
-    console.log(data);
-    // Handle form submission here
-    reset();
+  const onSubmit = async (data: FormData) => {
+    const clientType = "reqCare";
+
+    try {
+      await axios.post(`${process.env.API_URL}/api/client`, {
+        ...data,
+        clientType,
+      });
+
+      toast.success("Thanks For Contacting with Us!");
+
+      reset({
+        name: "",
+        phone: "",
+        email: "",
+        address: "",
+        city: "",
+        state: "",
+        contactTime: undefined,
+        insuranceType: undefined,
+        relationship: undefined,
+        needs: "",
+      });
+    } catch (error) {
+      toast.error("Failed to submit data.");
+      console.error("Error making POST request:", error);
+      throw error; // Re-throw the error if you want to handle it later
+    }
   };
 
   const renderSelectItem = (value: string, label: string) => (
@@ -231,8 +257,10 @@ export default function EligibilityForm2() {
           type="submit"
           className="w-full h-[60px] text-lg md:text-xl font-semibold leading-[25px] rounded-xl"
         >
-          Submit
+          Submitz
         </Button>
+
+        <Toaster position="bottom-right" reverseOrder={false} />
       </form>
     </section>
   );
