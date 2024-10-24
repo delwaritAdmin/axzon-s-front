@@ -48,6 +48,8 @@ export async function generateMetadata({
   };
 }
 
+
+
 const JobDetailsPage = ({ params }: { params: { id: string } }) => {
   const job = jobs.find((j) => j.id === params.id);
 

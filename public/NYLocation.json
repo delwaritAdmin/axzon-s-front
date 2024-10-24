@@ -1,6 +1,14 @@
 [
   {
     "state": "New York",
+    "address": "70 East Sunrise Highway #500, Valley Stream, NY 11581, United States"
+  },
+  {
+    "state": "New York",
+    "address": "580 Hempstead Turnpike, West Hempstead, NY 11552, United States"
+  },
+  {
+    "state": "New York",
     "address": "90 State St, Suite # 700, Albany, NY 12207, United States"
   },
   {
@@ -18,13 +26,5 @@
   {
     "state": "New York",
     "address": "5 Jaspa Road, p.o. 1212, Shelter Island, NY 11965, United States"
-  },
-  {
-    "state": "New York",
-    "address": "70 East Sunrise Highway #500, Valley Stream, NY 11581, United States"
-  },
-  {
-    "state": "New York",
-    "address": "580 Hempstead Turnpike, West Hempstead, NY 11552, United States"
   }
 ]

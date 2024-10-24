@@ -17,6 +17,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { formatDate } from "@/utils/dateFormate";
 import JobApplicationForm from "@/components/JobApplication/JobApplicationForm";
+import axios from "axios";
 
 interface JobDetailsProps {
   job: Job;
@@ -26,8 +27,19 @@ const JobDetails: React.FC<JobDetailsProps> = ({ job }) => {
   const [showApplicationForm, setShowApplicationForm] = useState(false);
   const [applicantCount, setApplicantCount] = useState(0);
 
+  const getJobPosts = async () => {
+    try {
+      const res = await axios.get(`${process.env.JOB_API_URL}`);
+      console.log(res.data);
+    } catch (error) {
+      console.error("Error fetching job posts:", error);
+      throw error; // Optionally rethrow or handle the error
+    }
+  };
+
   useEffect(() => {
     setApplicantCount(Math.floor(Math.random() * 20));
+    getJobPosts();
   }, []);
 
   return (
